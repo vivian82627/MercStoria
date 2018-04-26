@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<title>Merc Storia</title>
+		<!-- angular -->
+	    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>	
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
+		<!-- bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+		<!-- ng-table -->
+		<script type="text/javascript" src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
+		<link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+		<!-- multi-select -->
+		<script type="text/javascript" src="js/angular-bootstrap-multiselect.min.js"></script>
+		<!-- custom -->
+		<script type="text/javascript" src="app.js"></script>
+	    <script type="text/javascript" src="js/merc.js"></script>
+		<link rel="stylesheet" href="css/style.css" >
+ 	</head>
+	<body ng-controller="merc">
+		<div class="filter" style="height: 90px;">
+			<div class="row" style="padding: 5px;">
+				<div class="col-sm-1 filterName">レアリティ：</div>
+				<div class="col-sm-2">
+					<multiselect ng-model="searchVO.rare" options="rareList" 
+						show-select-all="true" show-unselect-all="true" ng-change="changeFilter()"></multiselect>
+				</div>
+				<div class="col-sm-1 filterName">屬性：</div>
+				<div class="col-sm-2">
+					<multiselect ng-model="searchVO.attribute" options="attributeList" 
+						show-select-all="true" show-unselect-all="true" ng-change="changeFilter()"></multiselect>
+				</div>
+				<div class="col-sm-1 filterName">武器種別：</div>
+				<div class="col-sm-2">
+					<multiselect ng-model="searchVO.weaponType" options="weaponList" 
+						show-select-all="true" show-unselect-all="true" ng-change="changeFilter()"></multiselect>
+				</div>
+			</div>
+			<div class="row" style="padding: 5px;">
+				<div class="col-sm-1 filterName">リーチ：</div>
+				<div class="col-sm-2">
+					<input type="number" ng-model="searchVO.distanceMin" ng-change="changeFilter()"> ~ 
+					<input type="number" ng-model="searchVO.distanceMax" ng-change="changeFilter()">
+				</div>
+				<div class="col-sm-1 filterName">同時攻撃数：</div>
+				<div class="col-sm-2">
+					<input type="number" ng-model="searchVO.atkNumMin" ng-change="changeFilter()"> ~ 
+					<input type="number" ng-model="searchVO.atkNumMax" ng-change="changeFilter()">
+				</div>
+				<div class="col-sm-1 filterName">攻撃段数：</div>
+				<div class="col-sm-2">
+					<input type="number" ng-model="searchVO.atkSegMin" ng-change="changeFilter()"> ~ 
+					<input type="number" ng-model="searchVO.atkSegMax" ng-change="changeFilter()">
+				</div>
+				<div class="col-sm-3">
+					<button type="button" class="btn btn-info" ng-click="update()" ng-disabled="updateFlag">更新資料庫</button>
+					<span ng-show="updateFlag"><img src="resource/loading.gif" style="width:30px"/>請稍後...</span>
+				</div>
+			</div>
+		</div>
+		<img ng-src="resource/top.png" style="width:30px" id="topBtn" ng-click="topFunction()"/>
+		<div style="height:{{iframeHeight + 'px'}}; overflow-x: auto; overflow-y:hidden;">
+			<table ng-table="tableParams" class="table table-striped table-scroll" style="width: 2200px;">
+				<tbody style="max-height:{{iframeHeight-40 + 'px'}}; display:block; overflow-y:scroll;" id="tablebody">
+				<tr ng-repeat="unit in $data | searchFilter : searchVO">
+					<td title="'画像'" sortable="'picURL'" class="width4" header-class="'width4'">
+						<img ng-src="{{unit.picURL}}" style="width:50px"/>
+					</td>
+					<td title="'ユニット名'" sortable="'name'" class="width6" header-class="'width6'">
+						<a ng-href="https://メルクストーリア.gamerch.com/{{unit.name}}" 
+							ng-bind-html="unit.name" class="text-left" target="_blank"/></a>
+					</td>
+					<td title="'レアリティ'" sortable="'rare'" ng-bind="unit.rare" class="width5" header-class="'width5'"></td>
+					<td title="'属性'" sortable="'attribute'" ng-bind="unit.attribute" class="width4" header-class="'width4'"></td>
+					<td title="'出身'" sortable="'country'" ng-bind="unit.country" class="width4" header-class="'width4'"></td>
+					<!--<td title="'年齢'" sortable="'age'" ng-bind="unit.age" class="width4" header-class="'width4'"></td>-->
+					<!--<td title="'性別'" sortable="'sex'" ng-bind="unit.sex" class="width4" header-class="'width4'"></td>-->
+					<td title="'成長タイプ'" sortable="'grownType'" ng-bind="unit.grownType" class="width5" header-class="'width5'"></td>
+					<td title="'武器種別'" sortable="'weaponType'" ng-bind="unit.weaponType" class="width4" header-class="'width4'"></td>
+					<!--<td title="'DPS'" sortable="'initDPS'" ng-bind="unit.initDPS|number" class="width4" header-class="'width4'"></td>-->
+					<td title="'覚醒DPS'" sortable="'awakeDPS'" ng-bind="unit.awakeDPS|number" class="width4" header-class="'width4'"></td>
+					<!--<td title="'総合DPS'" sortable="'totalDPS'" ng-bind="unit.totalDPS|number" class="width4" header-class="'width4'"></td>-->
+					<td title="'覚醒総合DPS'" sortable="'awakeTotalDPS'" ng-bind="unit.awakeTotalDPS|number" class="width6" header-class="'width6'"></td>
+					<td title="'リーチ'" sortable="'distance'" ng-bind="unit.distance|number" class="width4" header-class="'width4'"></td>
+					<td title="'同時攻撃数'" sortable="'atkNum'" ng-bind="unit.atkNum|number" class="width5" header-class="'width5'"></td>
+					<td title="'攻撃段数'" sortable="'atkSegment'" ng-bind="unit.atkSegment|number" class="width4" header-class="'width4'"></td>
+					<td title="'攻撃間隔'" sortable="'period'" ng-bind="unit.period|number" class="width4" header-class="'width4'"></td>
+					<td title="'移動速度'" sortable="'speed'" ng-bind="unit.speed|number" class="width4" header-class="'width4'"></td>
+					<td title="'タフネス'" sortable="'toughness'" ng-bind="unit.toughness|number" class="width4" header-class="'width4'"></td>
+					<td title="'初期体力'" sortable="'initHP'" ng-bind="unit.initHP|number" class="width4" header-class="'width4'"></td>
+					<td title="'最大体力'" sortable="'maxHP'" ng-bind="unit.maxHP|number" class="width4" header-class="'width4'"></td>
+					<td title="'覚醒体力'" sortable="'awakeHP'" ng-bind="unit.awakeHP|number" class="width4" header-class="'width4'"></td>
+					<td title="'初期攻撃力'" sortable="'initATK'" ng-bind="unit.initATK|number" class="width5" header-class="'width5'"></td>
+					<td title="'最大攻撃力'" sortable="'maxATK'" ng-bind="unit.maxATK|number" class="width5" header-class="'width5'"></td>
+					<td title="'覚醒攻撃力'" sortable="'awakeATK'" ng-bind="unit.awakeATK|number" class="width5" header-class="'width5'"></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>

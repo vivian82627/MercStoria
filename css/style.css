@@ -1,0 +1,40 @@
+/*table tbody {
+	display:block;
+	max-height:510px;
+	overflow-y:scroll;
+}*/
+table thead, table tbody tr {
+	display:table;
+	width:100%;
+	table-layout:fixed;
+}
+
+.width3 {width: 3%;}
+.width4 {width: 4%;}
+.width5 {width: 5%;}
+.width6 {width: 6%;}
+
+.table-scroll td {
+	text-align: center;
+}
+
+.filter input{
+	width: 50px;
+}
+
+.filter .filterName{
+	text-align: right;
+	/*font-weight: bold;*/
+}
+
+body {
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+#topBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99;
+}
