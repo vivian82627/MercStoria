@@ -19,41 +19,44 @@ app.controller('merc',
 			}
 			$scope.unitList = [];
 			$scope.iframeHeight = $window.innerHeight - 90;
-			
+
 			$http({
-				method: 'GET',
-				url: 'https://spreadsheets.google.com/feeds/cells/1dF8a4LU9JbPXAP5FrDcWa1SJoy6hRoiQXFI_ASGtEY0/1/public/values?alt=json',
+				method: 'POST',
+				url: 'https://script.google.com/macros/s/AKfycbw4g-qjr-XVu1ehIm1qevyAzrc6x1vQaIkVAqW3/exec',
+				params: {
+					'method': 'query'
+				}
 			}).then(function(response) {
-				var feed = response.data.feed;
-				for (var i=27; i <feed.entry.length; i+=27){//feed.entry.length
+				var units = response.data.units;
+				for (var i=1; i < units.length; i++){
 					var unit = {};
-					unit.id = feed.entry[i].content.$t;//ID
-					unit.picURL = feed.entry[i+1].content.$t;//画像
-					unit.name = feed.entry[i+2].content.$t.replace('」', '」<br>');//ユニット名
-					unit.country = feed.entry[i+3].content.$t;//出身
-					//unit.age = feed.entry[i+4].content.$t;//年齢
-					//unit.sex = feed.entry[i+5].content.$t;//性別
-					unit.rare = feed.entry[i+6].content.$t;//レアリティ
-					unit.attribute = feed.entry[i+7].content.$t;//属性
-					unit.grownType = feed.entry[i+8].content.$t;//成長タイプ
-					unit.weapon = feed.entry[i+9].content.$t;//武器
-					unit.weaponType = feed.entry[i+10].content.$t;//武器種別
-					unit.atkNum = feed.entry[i+11].content.$t;//同時攻撃数
-					unit.atkSegment = feed.entry[i+12].content.$t;//攻撃段数
-					unit.initHP = feed.entry[i+13].content.$t;//初期体力
-					unit.maxHP = feed.entry[i+14].content.$t;//最大体力
-					unit.awakeHP = feed.entry[i+15].content.$t;//覚醒体力
-					unit.speed = feed.entry[i+16].content.$t;//移動速度
-					unit.distance = feed.entry[i+17].content.$t;//リーチ
-					//unit.initDPS = feed.entry[i+18].content.$t;//DPS
-					unit.awakeDPS = feed.entry[i+19].content.$t;//覚醒DPS
-					unit.initATK = feed.entry[i+20].content.$t;//初期攻撃力
-					unit.maxATK = feed.entry[i+21].content.$t;//最大攻撃力
-					unit.awakeATK = feed.entry[i+22].content.$t;//覚醒攻撃力
-					unit.period = feed.entry[i+23].content.$t;//攻撃間隔
-					unit.toughness = feed.entry[i+24].content.$t;//タフネス
-					//unit.totalDPS = feed.entry[i+25].content.$t;//総合DPS
-					unit.awakeTotalDPS = feed.entry[i+26].content.$t;//覚醒総合DPS
+					unit.id = units[i][0];//ID
+					unit.picURL = units[i][1];//画像
+					unit.name = units[i][2].replace('」', '」<br>');//ユニット名
+					unit.country = units[i][3];//出身
+					//unit.age = units[i][4];//年齢
+					//unit.sex = units[i][5];//性別
+					unit.rare = units[i][6];//レアリティ
+					unit.attribute = units[i][7];//属性
+					unit.grownType = units[i][8];//成長タイプ
+					unit.weapon = units[i][9];//武器
+					unit.weaponType = units[i][10];//武器種別
+					unit.atkNum = units[i][11];//同時攻撃数
+					unit.atkSegment = units[i][12];//攻撃段数
+					unit.initHP = units[i][13];//初期体力
+					unit.maxHP = units[i][14];//最大体力
+					unit.awakeHP = units[i][15];//覚醒体力
+					unit.speed = units[i][16];//移動速度
+					unit.distance = units[i][17];//リーチ
+					//unit.initDPS = units[i][18];//DPS
+					unit.awakeDPS = units[i][19];//覚醒DPS
+					unit.initATK = units[i][20];//初期攻撃力
+					unit.maxATK = units[i][21];//最大攻撃力
+					unit.awakeATK = units[i][22];//覚醒攻撃力
+					unit.period = units[i][23];//攻撃間隔
+					unit.toughness = units[i][24];//タフネス
+					//unit.totalDPS = units[i][25];//総合DPS
+					unit.awakeTotalDPS = units[i][26];//覚醒総合DPS
 					$scope.unitList.push(unit);
 				}
 			}).catch(function(response) {
@@ -74,7 +77,7 @@ app.controller('merc',
 					'method': 'update'
 				}
 			}).then(function(response) {
-				console.log(data);
+				console.log(response.data);
 			}).catch(function(response) {
 				console.error('error', response.status, response.data);
 			}).finally(function() {
