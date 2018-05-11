@@ -41,22 +41,22 @@ app.controller('merc',
 					unit.grownType = units[i][8];//成長タイプ
 					unit.weapon = units[i][9];//武器
 					unit.weaponType = units[i][10];//武器種別
-					unit.atkNum = units[i][11];//同時攻撃数
-					unit.atkSegment = units[i][12];//攻撃段数
-					unit.initHP = units[i][13];//初期体力
-					unit.maxHP = units[i][14];//最大体力
-					unit.awakeHP = units[i][15];//覚醒体力
-					unit.speed = units[i][16];//移動速度
-					unit.distance = units[i][17];//リーチ
-					//unit.initDPS = units[i][18];//DPS
-					unit.awakeDPS = units[i][19];//覚醒DPS
-					unit.initATK = units[i][20];//初期攻撃力
-					unit.maxATK = units[i][21];//最大攻撃力
-					unit.awakeATK = units[i][22];//覚醒攻撃力
-					unit.period = units[i][23];//攻撃間隔
-					unit.toughness = units[i][24];//タフネス
-					//unit.totalDPS = units[i][25];//総合DPS
-					unit.awakeTotalDPS = units[i][26];//覚醒総合DPS
+					unit.atkNum = parseInt(units[i][11]);//同時攻撃数
+					unit.atkSegment = parseInt(units[i][12]);//攻撃段数
+					unit.initHP = parseInt(units[i][13]);//初期体力
+					unit.maxHP = parseInt(units[i][14]);//最大体力
+					unit.awakeHP = parseInt(units[i][15]);//覚醒体力
+					unit.speed = parseInt(units[i][16]);//移動速度
+					unit.distance = parseInt(units[i][17]);//リーチ
+					//unit.initDPS = parseInt(units[i][18]);//DPS
+					unit.awakeDPS = parseInt(units[i][19]);//覚醒DPS
+					unit.initATK = parseInt(units[i][20]);//初期攻撃力
+					unit.maxATK = parseInt(units[i][21]);//最大攻撃力
+					unit.awakeATK = parseInt(units[i][22]);//覚醒攻撃力
+					unit.period = parseFloat(units[i][23]);//攻撃間隔
+					unit.toughness = parseInt(units[i][24]);//タフネス
+					//unit.totalDPS = parseInt(units[i][25]);//総合DPS
+					unit.awakeTotalDPS = parseInt(units[i][26]);//覚醒総合DPS
 					$scope.unitList.push(unit);
 				}
 			}).catch(function(response) {
