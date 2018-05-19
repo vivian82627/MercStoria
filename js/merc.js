@@ -32,7 +32,7 @@ app.controller('merc',
 					var unit = {};
 					unit.id = units[i][0];//ID
 					unit.picURL = units[i][1];//画像
-					unit.name = units[i][2].replace('」', '」<br>');//ユニット名
+					unit.name = units[i][2];//ユニット名
 					unit.country = units[i][3];//出身
 					//unit.age = units[i][4];//年齢
 					//unit.sex = units[i][5];//性別

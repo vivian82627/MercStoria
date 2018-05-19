@@ -70,7 +70,7 @@
 					</td>
 					<td title="'ユニット名'" sortable="'name'" class="width6" header-class="'width6'">
 						<a ng-href="https://メルクストーリア.gamerch.com/{{unit.name}}" 
-							ng-bind-html="unit.name" class="text-left" target="_blank"/></a>
+							ng-bind-html="unit.name.replace('」', '」<br>')" class="text-left" target="_blank"/></a>
 					</td>
 					<td title="'レアリティ'" sortable="'rare'" ng-bind="unit.rare" class="width5" header-class="'width5'"></td>
 					<td title="'属性'" sortable="'attribute'" ng-bind="unit.attribute" class="width4" header-class="'width4'"></td>
