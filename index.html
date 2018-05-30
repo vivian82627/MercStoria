@@ -55,7 +55,8 @@
 				</div>
 				<div class="col-sm-3">
 					<button type="button" class="btn btn-info" ng-click="update()" ng-disabled="updateFlag">更新資料庫</button>
-					<span ng-show="updateFlag"><img src="resource/loading.gif" style="width:30px"/>請稍後...</span>
+					<span ng-if="!updateFlag" ng-bind="'最後更新：' + (lastupdate|date:'yyyy/MM/dd HH:mm:ss')"></span>
+					<span ng-if="updateFlag"><img src="resource/loading.gif" style="width:30px"/>請稍後...</span>
 				</div>
 			</div>
 		</div>

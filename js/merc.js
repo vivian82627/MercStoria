@@ -59,6 +59,7 @@ app.controller('merc',
 					unit.awakeTotalDPS = parseInt(units[i][26]);//覚醒総合DPS
 					$scope.unitList.push(unit);
 				}
+				$scope.lastupdate = new Date(response.data.lastupdate);
 			}).catch(function(response) {
 				console.error('error', response.status, response.data);
 			}).finally(function() {
@@ -69,21 +70,30 @@ app.controller('merc',
 		}
 		
 		$scope.update = function (){
-			$scope.updateFlag = true;
-			$http({
-				method: 'POST',
-				url: 'https://script.google.com/macros/s/AKfycbw4g-qjr-XVu1ehIm1qevyAzrc6x1vQaIkVAqW3/exec',
-				params: {
-					'method': 'update'
-				}
-			}).then(function(response) {
-				console.log(response.data);
-			}).catch(function(response) {
-				console.error('error', response.status, response.data);
-			}).finally(function() {
-				$scope.updateFlag = false;
-				$window.location.reload();
-			});			
+			var now = new Date();
+			var min = parseInt((now - $scope.lastupdate) / 60000);//距離現在前min分更新過
+			
+			if (min < 10){
+				var html = "上次更新時間:" + $filter('date')($scope.lastupdate, 'yyyy/MM/dd HH:mm:ss', '+0800') + "\n";
+				html += "為避免太頻繁更新，請於" + (10-min) + "分鐘後再試~";
+				alert(html);
+			} else {
+				$scope.updateFlag = true;
+				$http({
+					method: 'POST',
+					url: 'https://script.google.com/macros/s/AKfycbw4g-qjr-XVu1ehIm1qevyAzrc6x1vQaIkVAqW3/exec',
+					params: {
+						'method': 'update'
+					}
+				}).then(function(response) {
+					console.log(response.data);
+				}).catch(function(response) {
+					console.error('error', response.status, response.data);
+				}).finally(function() {
+					$scope.updateFlag = false;
+					$window.location.reload();
+				});	
+			} 		
 		}
 		
 		$scope.topFunction = function (){
