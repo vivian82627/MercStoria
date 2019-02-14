@@ -1,8 +1,3 @@
-/*table tbody {
-	display:block;
-	max-height:510px;
-	overflow-y:scroll;
-}*/
 table thead, table tbody tr {
 	display:table;
 	width:100%;
@@ -14,17 +9,9 @@ table thead, table tbody tr {
 .width5 {width: 5%;}
 .width6 {width: 6%;}
 
-.table-scroll td {
 	text-align: center;
-}
-
 .filter input{
 	width: 50px;
-}
-
-.filter .filterName{
-	text-align: right;
-	/*font-weight: bold;*/
 }
 
 body {
@@ -33,8 +20,8 @@ body {
 }
 
 #topBtn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 99;
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 99;
 }
