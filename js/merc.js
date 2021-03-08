@@ -69,13 +69,14 @@ app.controller('merc',
 			})
 		}
 		
-		$scope.update = function (){
+		$scope.update = function (name){
 			$scope.updateFlag = true;
 			$http({
 				method: 'POST',
 				url: 'https://script.google.com/macros/s/AKfycbw4g-qjr-XVu1ehIm1qevyAzrc6x1vQaIkVAqW3/exec',
 				params: {
-					'method': 'update'
+					'method': 'update',
+					'unitName': name
 				}
 			}).then(function(response) {
 				console.log(response.data);

@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<title>Merc Storia</title>
 		<!-- angular -->
-	    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>	
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>	
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
 		<!-- bootstrap -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
@@ -15,9 +15,9 @@
 		<script type="text/javascript" src="js/angular-bootstrap-multiselect.min.js"></script>
 		<!-- custom -->
 		<script type="text/javascript" src="app.js"></script>
-	    <script type="text/javascript" src="js/merc.js"></script>
+		<script type="text/javascript" src="js/merc.js"></script>
 		<link rel="stylesheet" href="css/style.css" >
- 	</head>
+	</head>
 	<body ng-controller="merc">
 		<div class="filter" style="height: 90px;">
 			<div class="row" style="padding: 5px;">
@@ -63,7 +63,7 @@
 		<div class="clearfix"></div>
 		<img ng-src="resource/top.png" style="width:30px" id="topBtn" ng-click="topFunction()"/>
 		<div style="height:{{iframeHeight + 'px'}}; overflow-x: auto; overflow-y:hidden;">
-			<table ng-table="tableParams" class="table table-striped text-center" style="width: 2200px;">
+			<table ng-table="tableParams" class="table table-striped text-center" style="width: 2400px;">
 				<tbody style="max-height:{{iframeHeight-40 + 'px'}}; display:block; overflow-y:scroll;" id="tablebody">
 					<tr ng-repeat="unit in $data | searchFilter : searchVO">
 						<td title="'画像'" sortable="'picURL'" class="width4" header-class="'width4'">
@@ -96,6 +96,9 @@
 						<td title="'初期攻撃力'" sortable="'initATK'" ng-bind="unit.initATK|number" class="width5" header-class="'width5'"></td>
 						<td title="'最大攻撃力'" sortable="'maxATK'" ng-bind="unit.maxATK|number" class="width5" header-class="'width5'"></td>
 						<td title="'覚醒攻撃力'" sortable="'awakeATK'" ng-bind="unit.awakeATK|number" class="width5" header-class="'width5'"></td>
+						<td title="" class="width3" header-class="'width3'">
+							<button type="button" class="btn btn-info" ng-click="update(unit.name)" ng-disabled="updateFlag">更新</bu
+						</td>
 					</tr>
 				</tbody>
 			</table>
